@@ -3,8 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:space_furniture_ui/theme.dart';
 import 'package:space_furniture_ui/widgets/onboarding_item.dart';
 
-class OnBoardingPage extends StatelessWidget {
+class OnBoardingPage extends StatefulWidget {
   const OnBoardingPage({super.key});
+
+  @override
+  State<OnBoardingPage> createState() => _OnBoardingPageState();
+}
+
+class _OnBoardingPageState extends State<OnBoardingPage> {
+  int currentIndex = 0;
+  CarouselController controller = CarouselController();
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +41,15 @@ class OnBoardingPage extends StatelessWidget {
               options: CarouselOptions(
                 height: double.infinity,
                 viewportFraction: 1,
-                enableInfiniteScroll: false
+                enableInfiniteScroll: false,
+                initialPage: currentIndex,
+                onPageChanged: (index, _) {
+                  setState(() {
+                    currentIndex = index;
+                  });
+                }
               ),
+              carouselController: controller,
             ),
           ),
           Container(
@@ -60,7 +75,7 @@ class OnBoardingPage extends StatelessWidget {
                       height: 10,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: kBlackColor
+                        color: currentIndex == 0 ? kBlackColor : kLineDarkColor
                       ),
                     ),
                     SizedBox(width: 10),
@@ -69,7 +84,7 @@ class OnBoardingPage extends StatelessWidget {
                       height: 10,
                       decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: kLineDarkColor
+                          color: currentIndex == 1 ? kBlackColor : kLineDarkColor
                       ),
                     ),
                     SizedBox(width: 10),
@@ -78,13 +93,15 @@ class OnBoardingPage extends StatelessWidget {
                       height: 10,
                       decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: kLineDarkColor
+                          color: currentIndex == 2 ? kBlackColor : kLineDarkColor
                       ),
                     ),
                   ],
                 ),
                 TextButton(
-                  onPressed: (){},
+                  onPressed: (){
+                    controller.nextPage();
+                  },
                   child: Text(
                     'NEXT',
                     style: blackTextStyle.copyWith(
