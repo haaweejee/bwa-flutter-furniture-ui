@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:space_furniture_ui/pages/splash_pages.dart';
+import 'package:space_furniture_ui/pages/onboarding_page.dart';
+import 'package:space_furniture_ui/pages/splash_page.dart';
 import 'package:space_furniture_ui/theme.dart';
 
 void main() {
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routes: {
         '/': (context) => SplashPage(),
+        '/onboarding': (context) => OnBoardingPage()
       },
     );
   }
